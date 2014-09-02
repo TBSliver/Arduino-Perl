@@ -39,15 +39,6 @@ sub write {
   return $self->_io_output->name;
 }
 
-sub collapse_braces {
-  my $self = shift;
-  my $string = shift;
-
-  
-
-  return $string;
-}
-
 sub _get_prototypes {
   my $self = shift;
 
