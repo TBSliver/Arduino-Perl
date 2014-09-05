@@ -1,0 +1,27 @@
+processing.app.PdePreprocessor
+  PdePreprocessor()
+    Initialises the indentation
+  writePrefix(String program, String buildPath, String sketchName, String codeFolderPackages[])
+    takes a concatenated program, the path to which to write the file, the name of the sketch, and an unused parameter.
+  substituteUnicode(String program)
+    converts non-ascii chars to unicode escapes
+  write()
+    performs writeProgram, writeFooter, and closes the stream, returning the name
+  writeProgram(PrintStream out, String program, List<String> prototypes)
+    prints to the specified file the program, with all the prototytpes, and a header of '#include "Arduino.h"'
+  writeFooter()
+    do nothing
+  getExtraImports()
+    return the programImports
+  firstStatement(String in)
+    returns the index of the first non-comment non-whitespace non-preprocessor directive character.
+  strip(String in)
+    strips single & multi-line comments, single quoted characters, double quoted strings, and pre-processor directives
+  collapseBraces(String in)
+    removes everything from between top level braces (leaving empty lines)
+  prototypes(String in)
+    returns an arraylist of all the functions in a file which do not already have prototypes.o
+
+processing.app.Sketch
+  scrubComments(String what)
+    Strips out comments and replaces them with blank space, returning the original string
