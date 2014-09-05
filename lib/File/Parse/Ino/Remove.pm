@@ -11,6 +11,7 @@ remove_preprocessors
 remove_char_literals
 remove_string_literals
 remove_nested_braces
+remove_all
 /;
 
 our %EXPORT_TAGS = ( all => \@EXPORT_OK );
@@ -40,6 +41,17 @@ sub remove_string_literals {
 
 sub remove_nested_braces {
   return _remove_part(shift, $RE{balanced}{-parens => '{}'}, '{}');
+}
+
+sub remove_all {
+  my $string = shift;
+  my $ret_string;
+  $ret_string = remove_comments(            $string );
+  $ret_string = remove_preprocessors(   $ret_string );
+  $ret_string = remove_char_literals(   $ret_string );
+  $ret_string = remove_string_literals( $ret_string );
+  $ret_string = remove_nested_braces(   $ret_string );
+  return $ret_string;
 }
 
 sub _remove_part {
