@@ -2,7 +2,7 @@ use strict;
 use warnings;
 
 use FindBin qw/ $Bin /;
-use lib "$Bin/../lib";
+use lib "$Bin/../../lib";
 
 use File::Parse::Ino::Remove qw/ remove_char_literals /;
 
