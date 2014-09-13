@@ -4,7 +4,7 @@ use warnings;
 use FindBin qw/ $Bin /;
 use lib "$Bin/../../lib";
 
-use File::Parse::Ino::Remove qw/ get_first_statement_index /;
+use File::Parse::Ino::Get qw/ get_first_statement_index /;
 
 use Test::More;
 
