@@ -60,10 +60,14 @@ sub remove_nested_braces {
 sub remove_all {
   my $string = shift;
   my $ret_string;
-  $ret_string = remove_comments(            $string );
-  $ret_string = remove_preprocessors(   $ret_string );
+
+  # The order here actually matters, incase there are URLs inside a string,
+  # instead of a comment.
+
+  $ret_string = remove_preprocessors(   $string );
   $ret_string = remove_char_literals(   $ret_string );
   $ret_string = remove_string_literals( $ret_string );
+  $ret_string = remove_comments(        $ret_string );
   $ret_string = remove_nested_braces(   $ret_string );
   return $ret_string;
 }

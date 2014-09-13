@@ -41,6 +41,11 @@ sub _build_output {
   $output .= $prototype_insert;
   $output .= substr( $self->program, $first_statement_index );
 
+  # if there is no newline at the end, add one
+  if (substr($self->program, -1, 1) ne "\n") {
+    $output .= "\n";
+  }
+
   return $output;
 }
 
@@ -72,9 +77,15 @@ sub _get_prototypes {
   my @diff;
   my %repeats;
 
-  for (@function_matches, @prototype_matches) {
-    $repeats{$_}++;
+  #set a 'flag' for each function
+  for (@function_matches) {
+    $repeats{$_} = 1;
   }
+  # if a prototype for this exists, then increment the flag
+  for (@prototype_matches) {
+    $repeats{$_}++ if exists $repeats{$_};
+  }
+  # only remember functions which have no prototype set yet
   for (sort keys %repeats) {
     push(@diff, $_) unless $repeats{$_} > 1;
   }
