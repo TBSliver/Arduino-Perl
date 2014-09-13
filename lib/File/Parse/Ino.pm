@@ -4,7 +4,7 @@ use strict;
 use warnings;
 
 use File::Parse::Ino::Remove qw/ remove_all /;
-use File::Parse::Ino::Get qw/ get_first_statement_index /;
+use File::Parse::Ino::Get qw/ :all /;
 
 use IO::All;
 use Moo;

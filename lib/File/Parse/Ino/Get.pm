@@ -7,12 +7,15 @@ use Exporter qw/ import /;
 
 our @EXPORT_OK = qw/
 get_first_statement_index
+get_import_targets
 /;
 
 our %EXPORT_TAGS = ( all => \@EXPORT_OK );
 
 use C::Tokenize qw/ $comment_re
                     $cpp_re /;
+
+use Regexp::Common qw/ balanced /;
 
 sub get_first_statement_index {
   my $string = shift;
@@ -27,4 +30,26 @@ sub get_first_statement_index {
   return $index;
 }
 
+sub get_import_targets {
+  my $string = shift;
 
+  my @all_preprocessors = $string =~ m/$cpp_re/g;
+
+  my @import_statements = grep(/include/, @all_preprocessors);
+
+  my @final_output;
+
+  for my $input (@import_statements) {
+
+    $input =~ s/#include\s+($RE{balanced}{-begin=>"\"|<"}{-end=>"\"|>"}).*/$1/;
+    $input =~ s/\"|<|>//g;
+
+    chomp $input;
+
+    push @final_output, $input;
+
+  }
+
+  return \@final_output;
+
+}
