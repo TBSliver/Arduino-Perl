@@ -6,6 +6,7 @@ use warnings;
 use Exporter qw/ import /;
 
 our @EXPORT_OK = qw/
+get_first_statement_index
 remove_comments
 remove_preprocessors
 remove_char_literals
@@ -22,6 +23,19 @@ use C::Tokenize qw/ $comment_re
                     $string_re /;
 
 use Regexp::Common qw/ balanced /;
+
+sub get_first_statement_index {
+  my $string = shift;
+
+  my $regex = $comment_re . "|" . $cpp_re . "|" . "\\s+";
+
+  $string =~ m/($regex)*/g;
+
+  # @+ special variable is the last index of the match
+  my $index = $+[0];
+
+  return $index;
+}
 
 sub remove_comments {
   return _remove_part(shift, $comment_re);
