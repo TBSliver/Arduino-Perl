@@ -12,7 +12,8 @@ get_import_targets
 
 our %EXPORT_TAGS = ( all => \@EXPORT_OK );
 
-use C::Tokenize qw/ $comment_re
+use C::Tokenize qw/ $trad_comment_re
+                    $comment_re
                     $cpp_re /;
 
 use Regexp::Common qw/ balanced /;
@@ -32,6 +33,8 @@ sub get_first_statement_index {
 
 sub get_import_targets {
   my $string = shift;
+  
+  $string =~ s/$trad_comment_re//g;
 
   my @all_preprocessors = $string =~ m/$cpp_re/g;
 
