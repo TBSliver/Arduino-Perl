@@ -59,6 +59,14 @@ sub write {
   return $fh->name;
 }
 
+sub get_includes {
+  my $self = shift;
+
+  my $includes = get_include_targets($self->program);
+
+  return $includes;
+}
+
 sub _get_prototypes {
   my $self = shift;
 

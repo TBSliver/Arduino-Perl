@@ -7,7 +7,7 @@ use Exporter qw/ import /;
 
 our @EXPORT_OK = qw/
 get_first_statement_index
-get_import_targets
+get_include_targets
 /;
 
 our %EXPORT_TAGS = ( all => \@EXPORT_OK );
@@ -31,7 +31,7 @@ sub get_first_statement_index {
   return $index;
 }
 
-sub get_import_targets {
+sub get_include_targets {
   my $string = shift;
   
   $string =~ s/$trad_comment_re//g;

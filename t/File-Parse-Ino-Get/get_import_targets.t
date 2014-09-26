@@ -4,7 +4,7 @@ use warnings;
 use FindBin qw/ $Bin /;
 use lib "$Bin/../../lib";
 
-use File::Parse::Ino::Get qw/ get_import_targets /;
+use File::Parse::Ino::Get qw/ get_include_targets /;
 use IO::All;
 use Test::More;
 
@@ -51,7 +51,7 @@ sub test_files {
   my $original_io = io($original_filename);
   my $original_slurp = $original_io->slurp;
 
-  my $output = get_import_targets($original_slurp);
+  my $output = get_include_targets($original_slurp);
 
   is_deeply($output, $expected_output, "$file_prefix has correct includes");
 
